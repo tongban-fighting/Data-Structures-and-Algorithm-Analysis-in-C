@@ -1,5 +1,7 @@
 #include <stddef.h>
 #include <stdlib.h>
+#include <stdio.h>
+#include <ctype.h>
 
 typedef char ITEM;
 struct sNode{
@@ -15,4 +17,4 @@ void push(Stack *pstack, ITEM item);
 ITEM pop(Stack *pstack);
 ITEM top(Stack *pstack);
 int isEmpty(Stack *pstack);
-void relase(Stack *pstack);
+void my_relase(Stack *pstack);

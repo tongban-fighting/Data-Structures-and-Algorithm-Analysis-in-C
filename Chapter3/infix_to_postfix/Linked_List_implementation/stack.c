@@ -4,54 +4,55 @@
 
 void Initialization(Stack *pstack)
 {
-    *pstack = NULL;
+    *pstack = malloc(sizeof(struct sNode));
+    (*pstack)->next_node = NULL;
 }
 
 void push(Stack *pstack, ITEM item)
 {
     Node * temp = malloc(sizeof(struct sNode));
     temp->item = item;
-    if(*pstack == NULL)
-    {
-        *pstack = temp;
-        temp->next_node = NULL;
-    }
-    else
-    {
-        Node * temp2;
-        temp2 = *pstack;
-        *pstack = temp;
-        temp->next_node = temp2;
-    }
+    temp->next_node = (*pstack)->next_node;
+    (*pstack)->next_node = temp;
 }
 
 ITEM pop(Stack *pstack)
 {
-    ITEM temp = (*pstack)->item;
-    Node * node_temp, * node_temp2;
+    if(isEmpty(pstack))
+    {
+        exit(EXIT_FAILURE);
+    }
+    else
+    {
+        ITEM temp = (*pstack)->next_node->item;
+        Node * node_temp, * node_temp2;
 
-    node_temp = (*pstack)->next_node;
-    node_temp2 = *pstack;
-    *pstack = node_temp;
-    
-    free(node_temp2);
-    return temp;
+        node_temp = (*pstack)->next_node->next_node;
+        node_temp2 = (*pstack)->next_node;
+        (*pstack)->next_node = node_temp;
+        
+        free(node_temp2);
+        return temp;
+    }
 }
 
 ITEM top(Stack *pstack)
 {
-    return (*pstack)->item;
+    if(isEmpty(pstack))
+        exit(EXIT_FAILURE);
+    else
+        return (*pstack)->next_node->item;
 }
 
 int isEmpty(Stack *pstack)
 {
-    if(*pstack == NULL)
+    if((*pstack)->next_node == NULL)
         return 1;
     else
         return 0;
 }
 
-void relase(Stack *pstack)
+void my_relase(Stack *pstack)
 {
     Node * temp;
     while(*pstack != NULL)

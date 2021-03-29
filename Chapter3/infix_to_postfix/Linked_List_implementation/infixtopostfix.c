@@ -1,9 +1,6 @@
 // contains operators: + - * / ^ ( )
 
-#include <stdio.h>
 #include "stack.h"
-#include <stdlib.h>
-#include <ctype.h>
 
 #define INPUT_SIZE 30
 
@@ -54,24 +51,16 @@ int main(void)
                             pop(pstack);
                             putchar(current_operator);
                             putchar(' ');
-                            current_operator = top(pstack);
+                            if(isEmpty(pstack))
+                                break;
+                            else
+                                current_operator = top(pstack);
                         }
                         push(pstack,input_list[i]);
                     }
                 }
             }
         }
-
-        //for test
-        Node * temp = *pstack;
-        printf("\nStack:");
-        while (temp != NULL)
-        {
-            putchar(temp->item);
-            putchar(' ');
-            temp = temp->next_node;
-        }
-        putchar('\n');
     }
     while(isEmpty(pstack) == 0)
     {
@@ -80,7 +69,7 @@ int main(void)
     }
     putchar('\n');
 
-    relase(pstack);
+    my_relase(pstack);
     return 0;
 }
 
